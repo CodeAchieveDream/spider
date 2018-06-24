@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.spider" annotation-config="true"/>
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="2" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:datasource.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}" ></property>
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+
+
+        <property name="initialSize" value="${db.initialSize}" />
+        <property name="minIdle" value="10" />
+        <property name="maxIdle" value="20" />
+        <property name="maxActive" value="50" />
+        <property name="maxWait" value="10" />
+
+        <property name="defaultAutoCommit" value="true" />
+        <property name="minEvictableIdleTimeMillis" value="3600000" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml" />
+
+        <property name="plugins" >
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.spider.dao" ></property>
+    </bean>
+    <!-- 使用@Transaction进行声明式事物管理器需要声明下面的这行  -->
+
+    <tx:annotation-driven  proxy-target-class="true"/>
+
+    <bean id="transsactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+        <property name="rollbackOnCommitFailure" value="true" />
+    </bean>
+
+</beans>

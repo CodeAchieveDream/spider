@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spider.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.spider.pojo.Course" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="num" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="index" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="score" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="testType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="academy" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="teacher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="day" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="time" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="campus" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="building" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="room" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="weekStart" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="weekEnd" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, num, name, index, score, testType, academy, teacher, day, time, campus, building, 
+    room, weekStart, weekEnd, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course2017201801
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course2017201801
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.spider.pojo.Course" >
+    insert into course2017201801 (id, num, name, 
+      index, score, testType, 
+      academy, teacher, day, 
+      time, campus, building, 
+      room, weekStart, weekEnd, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{index,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{testtype,jdbcType=VARCHAR}, 
+      #{academy,jdbcType=VARCHAR}, #{teacher,jdbcType=VARCHAR}, #{day,jdbcType=INTEGER}, 
+      #{time,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{building,jdbcType=VARCHAR}, 
+      #{room,jdbcType=VARCHAR}, #{weekstart,jdbcType=INTEGER}, #{weekend,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.spider.pojo.Course" >
+    insert into course2017201801
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="index != null" >
+        index,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="testtype != null" >
+        testType,
+      </if>
+      <if test="academy != null" >
+        academy,
+      </if>
+      <if test="teacher != null" >
+        teacher,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="campus != null" >
+        campus,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="room != null" >
+        room,
+      </if>
+      <if test="weekstart != null" >
+        weekStart,
+      </if>
+      <if test="weekend != null" >
+        weekEnd,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="testtype != null" >
+        #{testtype,jdbcType=VARCHAR},
+      </if>
+      <if test="academy != null" >
+        #{academy,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="campus != null" >
+        #{campus,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="weekstart != null" >
+        #{weekstart,jdbcType=INTEGER},
+      </if>
+      <if test="weekend != null" >
+        #{weekend,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.spider.pojo.Course" >
+    update course2017201801
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        index = #{index,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=REAL},
+      </if>
+      <if test="testtype != null" >
+        testType = #{testtype,jdbcType=VARCHAR},
+      </if>
+      <if test="academy != null" >
+        academy = #{academy,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        teacher = #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="campus != null" >
+        campus = #{campus,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building = #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="room != null" >
+        room = #{room,jdbcType=VARCHAR},
+      </if>
+      <if test="weekstart != null" >
+        weekStart = #{weekstart,jdbcType=INTEGER},
+      </if>
+      <if test="weekend != null" >
+        weekEnd = #{weekend,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.spider.pojo.Course" >
+    update course2017201801
+    set num = #{num,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      index = #{index,jdbcType=VARCHAR},
+      score = #{score,jdbcType=REAL},
+      testType = #{testtype,jdbcType=VARCHAR},
+      academy = #{academy,jdbcType=VARCHAR},
+      teacher = #{teacher,jdbcType=VARCHAR},
+      day = #{day,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      campus = #{campus,jdbcType=VARCHAR},
+      building = #{building,jdbcType=VARCHAR},
+      room = #{room,jdbcType=VARCHAR},
+      weekStart = #{weekstart,jdbcType=INTEGER},
+      weekEnd = #{weekend,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

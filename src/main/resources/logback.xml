@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoding>UTF-8</encoding>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+
+    <appender name="spider" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>E:\tomcat\apache-tomcat-8.5.31\logs\spider.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>E:\tomcat\apache-tomcat-8.5.31\logs\spider.log.%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <append>true</append>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>E:\tomcat\apache-tomcat-8.5.31\logs\spider.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>E:\tomcat\apache-tomcat-8.5.31\logs\spider.log.%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <append>true</append>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMisamatch>DENY</onMisamatch>
+        </filter>
+    </appender>
+
+    <logger name="com.spider" additivity="false" level="INFO">
+        <appender-ref ref="spider" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="com.spider.dao" level="DEBUG" />
+
+
+
+    <!--<logger name="java.sql.PreparedStatement" level="DEBUG" />-->
+    <!--<logger name="java.sql.Connection" level="DEBUG" />-->
+    <!--<logger name="java.sql.Statement" level="DEBUG" />-->
+    <!--<logger name="com.ibatis" level="DEBUG" />-->
+    <!--<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />-->
+    <!--<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />-->
+    <!--<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />-->
+    <!--&lt;!&ndash; <logger name="org.springframework" level="ERROR" />  &ndash;&gt;-->
+    <!--<logger name="net.sf.ehcache" level="ERROR"/>-->
+    <!--&lt;!&ndash; <logger name="org.mybatis.spring" level="ERROR"/> &ndash;&gt;-->
+
+    <root level="DEBUG">
+        <appender-ref ref="console" /> <!-- 控制台输出 -->
+        <appender-ref ref="error" /> <!-- 文件输出 -->
+    </root>
+
+</configuration>
